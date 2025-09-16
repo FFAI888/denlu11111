@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>确认关系 v1.36</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+</head>
+<body>
+<div class="card">
+  <div class="app-container">
+    <h1 class="app-title">确认关系</h1>
+
+    <div id="tipsText" class="tips">
+      请点击二维码出示给你的邀请人，让邀请人为免费转账赠送一笔CRC币，再点击确认接收进行下一步
+    </div>
+
+    <div class="wallet-input-container">
+      <div class="wallet-label">接收钱包地址</div>
+      <input type="text" id="walletInput" readonly oncopy="return false">
+      <div class="qr-container" id="qrContainer"></div>
+    </div>
+
+    <div id="inviterBox" class="wallet-input-container hidden">
+      <div class="wallet-label">邀请人钱包地址</div>
+      <input type="text" id="inviterInput" readonly oncopy="return false">
+      <button id="sendBtn" class="mini-btn">发送</button>
+    </div>
+
+    <div class="button-stack">
+      <button id="btnReceive" class="action-btn" disabled>确认接收</button>
+      <button id="btnSend" class="action-btn hidden" disabled>确认发送</button>
+      <button id="btnBind" class="action-btn hidden">确认绑定</button>
+    </div>
+  </div>
+</div>
+
+<div id="toastContainer"></div>
+<div class="version">版本号: v1.36</div>
+<script src="relation.js"></script>
+</body>
+</html>
