@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>钱包调试 v1.0</title>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+</head>
+<body>
+  <h2>钱包调试页面</h2>
+  <button id="connectWalletBtn">连接钱包</button>
+
+  <script>
+    async function connectWallet() {
+      console.log("[Debug] connectWallet 点击了");
+      const ethereum = window.ethereum || window.BinanceChain;
+      if (!ethereum) {
+        alert("没有检测到钱包插件 (MetaMask / Binance Wallet)");
+        console.error("[Error] window.ethereum 不存在");
+        return;
+      }
+
+      try {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        console.log("[Debug] provider 创建成功");
+
+        await provider.send("eth_requestAccounts", []);
+        console.log("[Debug] 钱包授权成功");
+
+        const signer = provider.getSigner();
+        const address = await signer.getAddress();
+        console.log("[Debug] 当前钱包地址:", address);
+
+        const network = await provider.getNetwork();
+        console.log("[Debug] 当前网络 chainId:", network.chainId);
+      } catch (err) {
+        console.error("[Error] 连接失败:", err);
+        alert("连接钱包失败: " + err.message);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const btn = document.getElementById("connectWalletBtn");
+      if (btn) {
+        console.log("[Debug] 找到按钮，绑定事件");
+        btn.addEventListener("click", connectWallet);
+      } else {
+        console.error("[Error] 按钮没有找到");
+      }
+    });
+  </script>
+</body>
+</html>
