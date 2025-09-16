@@ -32,4 +32,4 @@ document.getElementById('connectWalletBtn').addEventListener('click', function()
     }, 3000);
 });
 
-// 当前文件版本号 v1.17
+// 当前文件版本号 v1.18
