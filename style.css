@@ -7,19 +7,19 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     overflow: hidden; /* 禁止滚动条 */
-    background: linear-gradient(135deg, #1c1c1c, #2c2c2c); /* 深灰黑背景 */
+    background: linear-gradient(135deg, #ece9e6, #ffffff); /* 浅灰白渐变背景 */
 }
 
-/* 卡片容器（深蓝紫渐变 + 阴影） */
+/* 卡片容器（浅蓝紫渐变 + 阴影 + 两边留白） */
 .card {
-    background: linear-gradient(135deg, #3a0ca3, #000046); /* 深蓝紫 */
+    background: linear-gradient(135deg, #a1c4fd, #c2e9fb); /* 浅蓝紫渐变 */
     padding: 30px 20px;
     border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    width: 100%;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    width: calc(100% - 40px); /* 两边留出 20px 边距 */
     max-width: 420px;
     box-sizing: border-box;
-    color: #fff;
+    color: #333;
 }
 
 /* App 容器 */
@@ -36,7 +36,7 @@ body {
     margin-bottom: 30px;
     font-size: 24px;
     font-weight: bold;
-    color: #fff;
+    color: #333;
 }
 
 /* 主按钮（连接钱包） */
@@ -48,8 +48,8 @@ body {
     margin-bottom: 10px;
     border: none;
     border-radius: 8px;
-    background-color: #ffffff;
-    color: #3a0ca3;
+    background-color: #2575fc;
+    color: #fff;
     width: 100%;
     max-width: 400px;
     box-sizing: border-box;
@@ -82,7 +82,7 @@ body {
 
 /* 加载动画（转圈） */
 .loader {
-    border: 2px solid #3a0ca3;
+    border: 2px solid #2575fc;
     border-top: 2px solid transparent;
     border-radius: 50%;
     width: 16px;
@@ -99,7 +99,7 @@ body {
 .wallet-status {
     font-size: 14px;
     margin-bottom: 20px;
-    color: #fff;
+    color: #333;
     min-height: 20px;
 }
 
@@ -109,6 +109,8 @@ body {
     align-items: center;
     gap: 12px;
     width: 100%;
+    padding: 0 5px; /* 左右内边距，保持输入框两边对称 */
+    box-sizing: border-box;
 }
 
 /* 左侧标签（上下排列 + 居中对齐） */
@@ -119,19 +121,19 @@ body {
     align-items: center;
     font-size: 14px;
     min-width: 70px;
-    color: #fff;
+    color: #333;
 }
 
-/* 输入框（加粗黑边 + 白底 + 禁止操作） */
+/* 输入框（不可点击、不可复制） */
 .referrer-container input {
     padding: 10px;
     font-size: 14px;
-    width: 100%;
+    flex: 1; /* 自动撑满剩余空间 */
     box-sizing: border-box;
     border: 2px solid #000;
     border-radius: 6px;
-    background-color: #e0e0e0;
-    color: #555;
+    background-color: #f8f8f8;
+    color: #666;
     pointer-events: none; /* 禁止点击 */
     user-select: none; /* 禁止复制 */
 }
@@ -142,5 +144,5 @@ body {
     bottom: 8px;
     right: 12px;
     font-size: 12px;
-    color: #bbb;
+    color: #777;
 }
