@@ -1,196 +1,66 @@
-/* v1.27 样式文件 */
-
-/* 页面整体布局：全屏 App 风格 */
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    overflow: hidden; /* 禁止滚动条 */
-    background: linear-gradient(135deg, #fbc2eb, #a6c1ee); /* 柔和渐变背景：粉紫 → 浅蓝 */
+  display:flex; justify-content:center; align-items:center;
+  height:100vh; margin:0; font-family:Arial, sans-serif;
+  background:linear-gradient(135deg, #fbc2eb, #a6c1ee);
+  overflow:hidden;
 }
 
-/* 卡片容器 */
 .card {
-    background: linear-gradient(135deg, #dbe6f6, #cfd9df);
-    padding: 50px 25px;
-    border-radius: 18px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    width: calc(100% - 40px);
-    max-width: 440px;
-    box-sizing: border-box;
-    color: #333;
+  background:linear-gradient(135deg,#dbe6f6,#cfd9df);
+  padding:40px 25px; border-radius:18px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.15);
+  width:calc(100% - 40px); max-width:460px;
+  box-sizing:border-box; color:#333;
 }
 
-/* App 容器 */
-.app-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+.app-container { display:flex; flex-direction:column; align-items:center; text-align:center; }
+.app-title { margin-bottom:25px; font-size:26px; font-weight:bold; color:#222; }
+.tips { margin-bottom:15px; font-size:14px; color:#444; line-height:1.5; }
+
+.wallet-input-container {
+  display:flex; align-items:center; justify-content:space-between;
+  width:100%; margin-bottom:30px;
+}
+.wallet-label { font-size:14px; min-width:100px; color:#333; }
+.wallet-input-container input {
+  flex:1; padding:12px; font-size:14px;
+  border:2px solid #000; border-radius:6px;
+  background-color:#f8f8f8; color:#444;
+  pointer-events:none; user-select:none;
+  margin:0 10px; box-sizing:border-box;
 }
 
-/* App 标题 */
-.app-title {
-    margin-bottom: 35px;
-    font-size: 26px;
-    font-weight: bold;
-    color: #222;
+.qr-container { width:50px; height:50px; border:1px solid #000; border-radius:6px; cursor:pointer; display:flex; justify-content:center; align-items:center; background:#fff; }
+
+.wallet-btn {
+  padding:14px 40px; font-size:18px; font-weight:bold;
+  border:none; border-radius:10px;
+  background:linear-gradient(135deg,#89f7fe,#66a6ff);
+  color:#fff; cursor:pointer; margin-bottom:20px;
 }
 
-/* 主按钮 */
-.main-btn {
-    padding: 18px 34px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #89f7fe, #66a6ff);
-    color: #fff;
-    width: 100%;
-    max-width: 400px;
-    box-sizing: border-box;
-    transition: background-color 0.3s, transform 0.1s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
+.button-stack { position:relative; width:100%; display:flex; justify-content:center; margin-top:20px; }
+.action-btn {
+  padding:15px 40px; font-size:16px; font-weight:bold;
+  border:none; border-radius:10px;
+  background:linear-gradient(135deg,#89f7fe,#66a6ff);
+  color:#fff; position:absolute; top:0; cursor:pointer;
 }
+.action-btn:disabled { background-color:#ccc; color:#666; cursor:not-allowed; }
+.hidden { display:none; }
 
-.main-btn:active {
-    transform: scale(0.95);
+.mini-btn {
+  font-size:12px; padding:6px 10px;
+  border:none; border-radius:6px;
+  background:#66a6ff; color:#fff; cursor:pointer;
 }
+.mini-btn:disabled { background:#ccc; color:#666; cursor:not-allowed; }
 
-.main-btn:disabled {
-    background-color: #ccc;
-    color: #666;
-    cursor: not-allowed;
-    transform: none;
-}
+.version { position:fixed; bottom:8px; right:12px; font-size:12px; color:#fff; text-shadow:0 1px 2px rgba(0,0,0,0.3); }
 
-.main-btn.success-flash {
-    background-color: #28a745 !important;
-    color: #fff !important;
-    transition: background-color 0.5s ease;
-}
-
-/* 加载动画 */
-.loader {
-    border: 2px solid #66a6ff;
-    border-top: 2px solid transparent;
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-/* 钱包状态文字 */
-.wallet-status {
-    font-size: 14px;
-    margin-bottom: 25px;
-    color: #333;
-    min-height: 20px;
-}
-
-/* 输入框容器 */
-.referrer-container {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    width: 100%;
-    padding: 0 5px;
-    box-sizing: border-box;
-}
-
-/* 左侧标签 */
-.referrer-label {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 14px;
-    min-width: 70px;
-    color: #333;
-}
-
-/* 输入框 */
-.referrer-container input {
-    padding: 12px;
-    font-size: 14px;
-    flex: 1;
-    box-sizing: border-box;
-    border: 2px solid #000;
-    border-radius: 6px;
-    background-color: #f8f8f8;
-    color: #444;
-    pointer-events: none;
-    user-select: none;
-}
-
-/* 页面右下角版本号 */
-.version {
-    position: fixed;
-    bottom: 8px;
-    right: 12px;
-    font-size: 12px;
-    color: #fff;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-}
-
-/* ---------------- Toast 提示框 ---------------- */
-#toastContainer {
-    position: fixed;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-
-.toast {
-    padding: 12px 20px;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 14px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    opacity: 0;
-    transform: translateY(-20px);
-    animation: slideDownFade 0.5s forwards;
-}
-
-.toast-success {
-    background: linear-gradient(135deg, #28a745, #6cc070);
-}
-
-.toast-error {
-    background: linear-gradient(135deg, #dc3545, #f58a8a);
-}
-
-.toast-warning {
-    background: linear-gradient(135deg, #ffc107, #ffda6a);
-    color: #222;
-}
-
-.toast-info {
-    background: linear-gradient(135deg, #17a2b8, #6bcbe0);
-}
-
-@keyframes slideDownFade {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+#toastContainer { position:fixed; top:10px; left:50%; transform:translateX(-50%); z-index:1000; display:flex; flex-direction:column; align-items:center; gap:10px; }
+.toast { padding:12px 20px; border-radius:8px; color:#fff; font-size:14px; box-shadow:0 4px 12px rgba(0,0,0,0.15); opacity:0; transform:translateY(-20px); animation:slideDownFade 0.5s forwards; }
+.toast-success { background:linear-gradient(135deg,#28a745,#6cc070); }
+.toast-error { background:linear-gradient(135deg,#dc3545,#f58a8a); }
+.toast-info { background:linear-gradient(135deg,#17a2b8,#6bcbe0); }
+@keyframes slideDownFade { to { opacity:1; transform:translateY(0); } }
