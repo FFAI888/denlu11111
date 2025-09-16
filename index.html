@@ -1,18 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>跳转中...</title>
-  <meta http-equiv="refresh" content="0;url=login.html">
-  <script>
-    // 保留 ?invite=xxx 参数并跳转
-    window.onload = function () {
-      const params = window.location.search; // 获取 ?invite=xxx
-      window.location.replace("login.html" + params);
-    };
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <p>正在跳转到登录页面...</p>
+    <div class="login-container">
+        <button id="connectWalletBtn">连接钱包</button>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
