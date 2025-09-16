@@ -1,4 +1,4 @@
-// v1.27 脚本文件：只支持币安链 BSC (ChainID 56)，自动切换网络 + Toast 提示框
+// v1.28 脚本文件：只支持币安链 BSC (ChainID 56)，钱包地址部分隐藏显示
 
 // 显示 Toast 提示
 function showToast(message, type = 'info') {
@@ -14,6 +14,12 @@ function showToast(message, type = 'info') {
         toast.style.transform = 'translateY(-20px)';
         setTimeout(() => toast.remove(), 500);
     }, 3000);
+}
+
+// 裁剪钱包地址：0x123456...abcd
+function shortenAddress(address) {
+    if (!address) return '';
+    return address.slice(0, 6) + '...' + address.slice(-4);
 }
 
 document.getElementById('connectWalletBtn').addEventListener('click', async function() {
@@ -34,6 +40,7 @@ document.getElementById('connectWalletBtn').addEventListener('click', async func
         // 请求账户权限
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
+        const shortAccount = shortenAddress(account);
 
         // 检查当前网络
         let chainId = await ethereum.request({ method: 'eth_chainId' });
@@ -85,8 +92,8 @@ document.getElementById('connectWalletBtn').addEventListener('click', async func
 
         // 成功连接 BSC
         if (chainId === '0x38') {
-            statusDiv.textContent = '钱包连接成功：' + account;
-            showToast('钱包连接成功', 'success');
+            statusDiv.textContent = '钱包连接成功：' + shortAccount;
+            showToast('钱包连接成功：' + shortAccount, 'success');
             btn.textContent = '连接钱包';
             btn.disabled = false;
 
