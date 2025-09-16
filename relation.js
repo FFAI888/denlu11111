@@ -1,62 +1,51 @@
-// v1.36 确认关系页面逻辑
+// v1.36 确认关系页面 JS
 let provider, signer, userAddress, inviterAddress;
 
 const CRC_ADDRESS = "0x5b2fe2b06e714b7bea4fd35b428077d850c48087";
-const CRC_ABI = [
-  "function transfer(address to, uint256 amount) public returns (bool)"
-];
-
+const CRC_ABI = ["function transfer(address to, uint256 amount) public returns (bool)"];
 const BSC_HTTP = "https://bsc-dataseed.binance.org/";
-const BSC_WSS = ""; // 可选
 
-function showToast(message, type = "info") {
+// 显示 Toast 提示
+function showToast(msg, type="info") {
   const container = document.getElementById("toastContainer");
-  const toast = document.createElement("div");
-  toast.className = `toast toast-${type}`;
-  toast.textContent = message;
-  container.appendChild(toast);
-  setTimeout(() => {
-    toast.style.opacity = "0";
-    toast.style.transform = "translateY(-20px)";
-    setTimeout(() => toast.remove(), 500);
-  }, 2000);
+  const t = document.createElement("div");
+  t.className = `toast toast-${type}`;
+  t.textContent = msg;
+  container.appendChild(t);
+  setTimeout(()=>t.remove(),2000);
 }
 
+// 初始化钱包
 async function initWallet() {
+  if (!window.ethereum) {
+    alert("请安装 MetaMask 或支持 BSC 的钱包");
+    return;
+  }
   provider = new ethers.providers.Web3Provider(window.ethereum);
   await provider.send("eth_requestAccounts", []);
   signer = provider.getSigner();
   userAddress = await signer.getAddress();
-
   document.getElementById("walletInput").value = userAddress;
-  document.getElementById("qrContainer").textContent = "🔳";
+  document.getElementById("qrContainer").textContent = "🔳"; // 占位二维码
 }
 
+// 轮询检测交易，3秒一次
 async function pollTransactions(callback) {
   const httpProvider = new ethers.providers.JsonRpcProvider(BSC_HTTP);
   let lastBlock = await httpProvider.getBlockNumber();
+
   setInterval(async () => {
     try {
       const newBlock = await httpProvider.getBlockNumber();
       if (newBlock <= lastBlock) return;
+
       for (let i = lastBlock + 1; i <= newBlock; i++) {
         const block = await httpProvider.getBlockWithTransactions(i);
         for (let tx of block.transactions) callback(tx);
       }
       lastBlock = newBlock;
-    } catch (err) { console.error("轮询出错:", err); }
+    } catch (e) { console.error("轮询出错:", e); }
   }, 3000);
-}
-
-async function listenTransactions(callback) {
-  if (!BSC_WSS) return;
-  const wsProvider = new ethers.providers.WebSocketProvider(BSC_WSS);
-  wsProvider.on("pending", async (txHash) => {
-    try {
-      const tx = await wsProvider.getTransaction(txHash);
-      if (tx) callback(tx);
-    } catch {}
-  });
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -68,37 +57,42 @@ document.addEventListener("DOMContentLoaded", async () => {
   const inviterBox = document.getElementById("inviterBox");
   const inviterInput = document.getElementById("inviterInput");
   const sendBtn = document.getElementById("sendBtn");
+  const tipsText = document.getElementById("tipsText");
   const crcContract = new ethers.Contract(CRC_ADDRESS, CRC_ABI, signer);
 
+  // 处理交易检测
   function handleTx(tx) {
     if (!btnReceive.disabled && tx.to && tx.to.toLowerCase() === userAddress.toLowerCase()) {
       inviterAddress = tx.from;
       btnReceive.disabled = false;
       showToast("检测到邀请人转账，确认接收按钮已激活", "success");
     }
-    if (!btnSend.disabled && inviterAddress && tx.from && tx.from.toLowerCase() === userAddress.toLowerCase() &&
+    if (!btnSend.disabled && inviterAddress &&
+        tx.from && tx.from.toLowerCase() === userAddress.toLowerCase() &&
         tx.to && tx.to.toLowerCase() === inviterAddress.toLowerCase()) {
       btnSend.disabled = false;
       showToast("检测到 CRC 发送成功，确认发送按钮已激活", "success");
     }
   }
 
+  // 开始轮询
   pollTransactions(handleTx);
-  listenTransactions(handleTx);
 
+  // 点击确认接收
   btnReceive.addEventListener("click", () => {
-    document.getElementById("tipsText").style.display = "none";
+    tipsText.style.display = "none";
     btnReceive.disabled = true;
     btnSend.classList.remove("hidden");
     inviterBox.classList.remove("hidden");
     inviterInput.value = inviterAddress || "0x检测中...";
   });
 
+  // 点击发送小按钮执行 CRC 转账
   sendBtn.addEventListener("click", async () => {
     if (!inviterAddress) { showToast("邀请人地址未检测到", "error"); return; }
     try {
       const tx = await crcContract.transfer(inviterAddress, ethers.BigNumber.from("1"));
-      showToast("CRC 转账已提交，等待确认...", "info");
+      showToast("CRC 转账已提交", "info");
       sendBtn.disabled = true;
       await tx.wait();
       showToast("CRC 转账成功", "success");
@@ -108,14 +102,35 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
+  // 点击确认发送按钮
   btnSend.addEventListener("click", () => {
     btnSend.disabled = true;
     btnBind.classList.remove("hidden");
   });
 
+  // 点击确认绑定按钮
   btnBind.addEventListener("click", () => {
     localStorage.setItem("inviterWallet", inviterAddress);
-    showToast("确认关系成功，跳转首页", "success");
-    setTimeout(() => (window.location.href = "index.html"), 1500);
+    showToast("确认关系成功，返回首页", "success");
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 1500);
+  });
+
+  // 二维码点击放大缩小（20秒后自动缩小）
+  const qrContainer = document.getElementById("qrContainer");
+  let qrZoom = false;
+  qrContainer.addEventListener("click", () => {
+    if (!qrZoom) {
+      qrContainer.style.transform = "scale(2)";
+      qrZoom = true;
+      setTimeout(() => {
+        qrContainer.style.transform = "scale(1)";
+        qrZoom = false;
+      }, 20000);
+    } else {
+      qrContainer.style.transform = "scale(1)";
+      qrZoom = false;
+    }
   });
 });
