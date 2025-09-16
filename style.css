@@ -6,6 +6,7 @@ body {
     height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
+    position: relative; /* 方便右下角版本号定位 */
 }
 
 .login-container {
@@ -31,4 +32,13 @@ body {
     padding: 8px;
     font-size: 14px;
     flex: 1;
+}
+
+/* 页面右下角版本号 */
+.version {
+    position: fixed;
+    bottom: 8px;
+    right: 12px;
+    font-size: 12px;
+    color: #555;
 }
