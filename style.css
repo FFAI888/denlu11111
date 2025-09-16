@@ -1,4 +1,4 @@
-/* 页面整体垂直居中 */
+/* 页面整体布局：全屏 App 风格 */
 body {
     display: flex;
     justify-content: center;
@@ -6,32 +6,57 @@ body {
     height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
-    position: relative; /* 方便右下角版本号定位 */
+    overflow: hidden; /* 禁止滚动条 */
 }
 
-.login-container {
+/* App 容器 */
+.app-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+    align-items: center; /* 居中显示所有元素 */
+    justify-content: center;
+    width: 100%;
+    max-width: 400px; /* 自适应，防止过宽 */
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
 }
 
-.login-container button {
+/* App 标题 */
+.app-title {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+/* 连接钱包按钮居中 */
+button {
     padding: 12px 24px;
     font-size: 16px;
     cursor: pointer;
+    margin-bottom: 20px;
 }
 
+/* 输入框容器：标签在上方 */
 .referrer-container {
     display: flex;
-    align-items: center;
+    flex-direction: column; /* 标签在上，输入框在下 */
+    align-items: stretch; /* 输入框撑满容器宽度 */
+    width: 100%;
     gap: 8px;
 }
 
-.referrer-container input {
-    padding: 8px;
+/* 标签 */
+.referrer-container label {
     font-size: 14px;
-    flex: 1;
+    text-align: left; /* 标签左对齐 */
+}
+
+/* 输入框 */
+.referrer-container input {
+    padding: 10px;
+    font-size: 14px;
+    width: 100%; /* 自适应容器宽度 */
+    box-sizing: border-box;
 }
 
 /* 页面右下角版本号 */
