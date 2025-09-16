@@ -11,4 +11,18 @@ body {
     padding: 12px 24px;
     font-size: 16px;
     cursor: pointer;
+    display: block;
+    margin-bottom: 16px;
+}
+
+/* 新增输入框和标签样式 */
+.referrer-container {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* 输入框和标签间距 */
+}
+
+.referrer-container input {
+    padding: 8px;
+    font-size: 14px;
 }
