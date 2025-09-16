@@ -1,21 +1,27 @@
 // v1.36 登录页面逻辑
 async function connectWallet() {
-  if (!window.ethereum) {
-    alert("请安装 MetaMask");
-    return;
-  }
+  if (!window.ethereum) { alert("请安装 MetaMask"); return; }
+
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   await provider.send("eth_requestAccounts", []);
   const signer = provider.getSigner();
   const address = await signer.getAddress();
 
   localStorage.setItem("loginWallet", address);
-  document.getElementById("referrerInput").value =
-    localStorage.getItem("inviterWallet") || "";
+  document.getElementById("referrerInput").value = localStorage.getItem("inviterWallet") || "";
 
-  if (!localStorage.getItem("inviterWallet")) {
-    window.location.href = "relation.html";
-  }
+  showToast("钱包已连接: " + address, "success");
+
+  if (!localStorage.getItem("inviterWallet")) { window.location.href = "relation.html"; }
+}
+
+function showToast(msg, type="info") {
+  const container = document.getElementById("toastContainer");
+  const toast = document.createElement("div");
+  toast.className = `toast toast-${type}`;
+  toast.textContent = msg;
+  container.appendChild(toast);
+  setTimeout(() => { toast.remove(); }, 2000);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
