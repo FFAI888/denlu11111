@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>跳转中...</title>
+  <meta http-equiv="refresh" content="0;url=login.html">
+  <script>
+    // 保留 ?invite=xxx 参数并跳转
+    window.onload = function () {
+      const params = window.location.search; // 获取 ?invite=xxx
+      window.location.replace("login.html" + params);
+    };
+  </script>
+</head>
+<body>
+  <p>正在跳转到登录页面...</p>
+</body>
+</html>
