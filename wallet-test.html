@@ -3,50 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>钱包调试 v1.0</title>
+  <title>钱包调试 v1.1</title>
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    #status { margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; background: #f9f9f9; }
+    button { padding: 10px 20px; font-size: 16px; }
+  </style>
 </head>
 <body>
   <h2>钱包调试页面</h2>
   <button id="connectWalletBtn">连接钱包</button>
 
+  <div id="status">
+    <p><strong>状态:</strong> 未连接</p>
+    <p><strong>地址:</strong> -</p>
+    <p><strong>网络 ChainId:</strong> -</p>
+  </div>
+
   <script>
     async function connectWallet() {
-      console.log("[Debug] connectWallet 点击了");
+      const statusBox = document.getElementById("status");
       const ethereum = window.ethereum || window.BinanceChain;
       if (!ethereum) {
-        alert("没有检测到钱包插件 (MetaMask / Binance Wallet)");
-        console.error("[Error] window.ethereum 不存在");
+        statusBox.innerHTML = "<p><strong>状态:</strong> ❌ 未检测到钱包插件 (MetaMask / Binance Wallet)</p>";
         return;
       }
 
       try {
         const provider = new ethers.providers.Web3Provider(ethereum);
-        console.log("[Debug] provider 创建成功");
-
         await provider.send("eth_requestAccounts", []);
-        console.log("[Debug] 钱包授权成功");
-
         const signer = provider.getSigner();
         const address = await signer.getAddress();
-        console.log("[Debug] 当前钱包地址:", address);
-
         const network = await provider.getNetwork();
-        console.log("[Debug] 当前网络 chainId:", network.chainId);
+
+        statusBox.innerHTML = `
+          <p><strong>状态:</strong> ✅ 已连接</p>
+          <p><strong>地址:</strong> ${address}</p>
+          <p><strong>网络 ChainId:</strong> ${network.chainId}</p>
+        `;
       } catch (err) {
-        console.error("[Error] 连接失败:", err);
-        alert("连接钱包失败: " + err.message);
+        statusBox.innerHTML = `<p><strong>状态:</strong> ❌ 连接失败: ${err.message}</p>`;
       }
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      const btn = document.getElementById("connectWalletBtn");
-      if (btn) {
-        console.log("[Debug] 找到按钮，绑定事件");
-        btn.addEventListener("click", connectWallet);
-      } else {
-        console.error("[Error] 按钮没有找到");
-      }
+      document.getElementById("connectWalletBtn").addEventListener("click", connectWallet);
     });
   </script>
 </body>
