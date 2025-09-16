@@ -7,6 +7,18 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     overflow: hidden; /* 禁止滚动条 */
+    background-color: #f2f2f2; /* 背景浅灰，突出卡片 */
+}
+
+/* 卡片容器（渐变背景 + 阴影） */
+.card {
+    background: linear-gradient(135deg, #e0f7fa, #ede7f6); /* 蓝紫渐变 */
+    padding: 30px 20px;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    width: 100%;
+    max-width: 420px;
+    box-sizing: border-box;
 }
 
 /* App 容器 */
@@ -15,10 +27,6 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-    box-sizing: border-box;
     text-align: center;
 }
 
@@ -27,6 +35,7 @@ body {
     margin-bottom: 30px;
     font-size: 22px;
     font-weight: bold;
+    color: #333;
 }
 
 /* 主按钮（连接钱包） */
@@ -107,6 +116,7 @@ body {
     align-items: center;
     font-size: 14px;
     min-width: 70px;
+    color: #333;
 }
 
 /* 输入框（加粗边框 + 黑色） */
