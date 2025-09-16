@@ -1,3 +1,5 @@
+/* v1.27 样式文件 */
+
 /* 页面整体布局：全屏 App 风格 */
 body {
     display: flex;
@@ -10,13 +12,13 @@ body {
     background: linear-gradient(135deg, #fbc2eb, #a6c1ee); /* 柔和渐变背景：粉紫 → 浅蓝 */
 }
 
-/* 卡片容器（背景颜色加深） */
+/* 卡片容器 */
 .card {
-    background: linear-gradient(135deg, #dbe6f6, #cfd9df); /* 较深的浅蓝灰渐变 */
-    padding: 50px 25px; /* 上下 padding 增加 */
+    background: linear-gradient(135deg, #dbe6f6, #cfd9df);
+    padding: 50px 25px;
     border-radius: 18px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    width: calc(100% - 40px); /* 两边留出 20px 边距 */
+    width: calc(100% - 40px);
     max-width: 440px;
     box-sizing: border-box;
     color: #333;
@@ -39,7 +41,7 @@ body {
     color: #222;
 }
 
-/* 主按钮（连接钱包） */
+/* 主按钮 */
 .main-btn {
     padding: 18px 34px;
     font-size: 18px;
@@ -48,7 +50,7 @@ body {
     margin-bottom: 15px;
     border: none;
     border-radius: 10px;
-    background: linear-gradient(135deg, #89f7fe, #66a6ff); /* 按钮渐变：浅蓝清新 */
+    background: linear-gradient(135deg, #89f7fe, #66a6ff);
     color: #fff;
     width: 100%;
     max-width: 400px;
@@ -60,12 +62,10 @@ body {
     gap: 8px;
 }
 
-/* 按钮点击时缩放动画 */
 .main-btn:active {
     transform: scale(0.95);
 }
 
-/* 按钮禁用状态 */
 .main-btn:disabled {
     background-color: #ccc;
     color: #666;
@@ -73,14 +73,13 @@ body {
     transform: none;
 }
 
-/* 成功闪烁效果 */
 .main-btn.success-flash {
     background-color: #28a745 !important;
     color: #fff !important;
     transition: background-color 0.5s ease;
 }
 
-/* 加载动画（转圈） */
+/* 加载动画 */
 .loader {
     border: 2px solid #66a6ff;
     border-top: 2px solid transparent;
@@ -95,7 +94,7 @@ body {
     to { transform: rotate(360deg); }
 }
 
-/* 点击后显示的钱包连接状态 */
+/* 钱包状态文字 */
 .wallet-status {
     font-size: 14px;
     margin-bottom: 25px;
@@ -113,7 +112,7 @@ body {
     box-sizing: border-box;
 }
 
-/* 左侧标签（上下排列 + 居中对齐） */
+/* 左侧标签 */
 .referrer-label {
     display: flex;
     flex-direction: column;
@@ -124,7 +123,7 @@ body {
     color: #333;
 }
 
-/* 输入框（不可点击、不可复制） */
+/* 输入框 */
 .referrer-container input {
     padding: 12px;
     font-size: 14px;
@@ -146,4 +145,52 @@ body {
     font-size: 12px;
     color: #fff;
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* ---------------- Toast 提示框 ---------------- */
+#toastContainer {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.toast {
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: slideDownFade 0.5s forwards;
+}
+
+.toast-success {
+    background: linear-gradient(135deg, #28a745, #6cc070);
+}
+
+.toast-error {
+    background: linear-gradient(135deg, #dc3545, #f58a8a);
+}
+
+.toast-warning {
+    background: linear-gradient(135deg, #ffc107, #ffda6a);
+    color: #222;
+}
+
+.toast-info {
+    background: linear-gradient(135deg, #17a2b8, #6bcbe0);
+}
+
+@keyframes slideDownFade {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
