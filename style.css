@@ -10,9 +10,9 @@ body {
     background: linear-gradient(135deg, #fbc2eb, #a6c1ee); /* 柔和渐变背景：粉紫 → 浅蓝 */
 }
 
-/* 卡片容器（浅蓝紫渐变 + 阴影 + 两边留白） */
+/* 卡片容器（玻璃拟态效果） */
 .card {
-    background: linear-gradient(135deg, #ffffff, #f1f5f9); /* 柔和浅灰渐变卡片 */
+    background: rgba(255, 255, 255, 0.25); /* 半透明白色 */
     padding: 30px 20px;
     border-radius: 16px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.15);
@@ -20,6 +20,11 @@ body {
     max-width: 420px;
     box-sizing: border-box;
     color: #333;
+
+    /* 玻璃拟态核心 */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* App 容器 */
@@ -36,7 +41,7 @@ body {
     margin-bottom: 30px;
     font-size: 24px;
     font-weight: bold;
-    color: #333;
+    color: #222;
 }
 
 /* 主按钮（连接钱包） */
@@ -132,8 +137,8 @@ body {
     box-sizing: border-box;
     border: 2px solid #000;
     border-radius: 6px;
-    background-color: #f8f8f8;
-    color: #666;
+    background-color: rgba(255,255,255,0.6);
+    color: #444;
     pointer-events: none;
     user-select: none;
 }
@@ -144,5 +149,6 @@ body {
     bottom: 8px;
     right: 12px;
     font-size: 12px;
-    color: #444;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
