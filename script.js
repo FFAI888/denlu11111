@@ -1,10 +1,10 @@
-// v1.41 调试版
+// v1.42 调试版
 let currentAccount = null;
 
 // 页面状态显示
 function updateStatus(msg, color = "blue") {
   const status = document.getElementById("walletStatus");
-  if(status) {
+  if (status) {
     status.innerText = msg;
     status.style.color = color;
   }
@@ -22,6 +22,8 @@ async function connectWallet() {
   updateStatus("✅ 钱包插件检测到，正在请求账户授权...");
   try {
     const provider = new ethers.providers.Web3Provider(ethereum);
+
+    // 请求授权
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
     const address = await signer.getAddress();
@@ -33,13 +35,16 @@ async function connectWallet() {
 
     // 自动回填邀请人地址（如果已经绑定过）
     const refInput = document.getElementById("referrerInput");
-    if(refInput) {
+    if (refInput) {
       refInput.value = localStorage.getItem("inviterWallet") || "";
     }
 
-  } catch(err) {
+  } catch (err) {
     console.error("连接失败:", err);
-    updateStatus("❌ 连接钱包失败: " + err.message, "red");
+
+    // 显示详细错误信息
+    let errMsg = err && err.message ? err.message : JSON.stringify(err);
+    updateStatus("❌ 连接钱包失败: " + errMsg, "red");
   }
 }
 
@@ -47,7 +52,7 @@ async function connectWallet() {
 document.addEventListener("DOMContentLoaded", () => {
   updateStatus("脚本已加载，等待操作...");
   const btn = document.getElementById("connectWalletBtn");
-  if(btn) {
+  if (btn) {
     btn.addEventListener("click", connectWallet);
   } else {
     console.error("找不到按钮 #connectWalletBtn");
