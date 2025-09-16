@@ -59,7 +59,7 @@ body {
 .main-btn:disabled {
     background-color: #999;
     cursor: not-allowed;
-    transform: none; /* 禁用时不缩放 */
+    transform: none;
 }
 
 /* 成功闪烁效果 */
@@ -91,7 +91,7 @@ body {
     min-height: 20px;
 }
 
-/* 输入框容器：左边是上下排列的标签，右边是输入框 */
+/* 输入框容器 */
 .referrer-container {
     display: flex;
     align-items: center;
@@ -99,23 +99,23 @@ body {
     width: 100%;
 }
 
-/* 左侧标签（上下排列） */
+/* 左侧标签（上下排列 + 居中对齐） */
 .referrer-label {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     font-size: 14px;
-    text-align: right;
     min-width: 70px;
 }
 
-/* 输入框 */
+/* 输入框（加粗边框 + 黑色） */
 .referrer-container input {
     padding: 10px;
     font-size: 14px;
     width: 100%;
     box-sizing: border-box;
-    border: 1px solid #ccc;
+    border: 2px solid #000; /* 加粗黑色边框 */
     border-radius: 6px;
 }
 
