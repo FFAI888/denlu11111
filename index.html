@@ -1,34 +1,56 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RongChain 登录 v1.43</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>连接钱包</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            margin-top: 20px;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .status {
+            margin-top: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-  <div class="app-container">
-    <div class="card">
-      <h2 class="welcome">欢迎使用 RongChain</h2>
-
-      <!-- 钱包连接状态 -->
-      <div id="walletStatus" style="margin-bottom:10px; color:blue;">脚本未运行</div>
-
-      <!-- 连接钱包按钮 -->
-      <button id="connectWalletBtn" class="btn-primary">连接钱包</button>
-
-      <!-- 邀请人钱包地址 -->
-      <div class="input-group">
-        <label for="referrerInput">邀请人钱包地址</label>
-        <input type="text" id="referrerInput" placeholder="请绑定邀请人钱包地址" readonly>
-      </div>
-
-      <!-- 版本号 -->
-      <div class="version">版本号: v1.43</div>
+    <div class="container">
+        <h3>连接钱包</h3>
+        <button id="connectWalletBtn">连接钱包</button>
+        <button id="retryWalletBtn" style="display:none;">重试</button>
+        <button id="stopRetryBtn" style="display:none;">停止重试</button>
+        <div id="walletStatus" class="status">等待操作...</div>
     </div>
-  </div>
 
-  <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.6.0/dist/ethers.umd.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
