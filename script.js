@@ -1,6 +1,4 @@
 async function connectWallet() {
-  console.log("点击连接钱包触发");
-
   const ethereum = window.ethereum || window.BinanceChain;
   if(!ethereum){ alert("请安装支持以太坊/BSC 的钱包"); return; }
 
@@ -49,6 +47,5 @@ function showToast(msg,type="info"){
 
 document.addEventListener("DOMContentLoaded", ()=>{
   const btn=document.getElementById("connectWalletBtn");
-  if(!btn) console.error("connectWalletBtn 按钮未找到");
   btn.addEventListener("click",connectWallet);
 });
