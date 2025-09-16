@@ -1,139 +1,38 @@
-/* 页面整体布局：全屏 App 风格 */
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    overflow: hidden; /* 禁止滚动条 */
-    background-color: #f2f2f2; /* 背景浅灰，突出卡片 */
-}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DApp Wallet Login v1.16</title> <!-- 文件名旁显示版本号 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 卡片容器 -->
+    <div class="card">
+        <div class="app-container">
+            <!-- App 标题 -->
+            <h1 class="app-title">DApp 应用</h1>
 
-/* 卡片容器（渐变背景 + 阴影） */
-.card {
-    background: linear-gradient(135deg, #e0f7fa, #ede7f6); /* 蓝紫渐变 */
-    padding: 30px 20px;
-    border-radius: 16px;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-    width: 100%;
-    max-width: 420px;
-    box-sizing: border-box;
-}
+            <!-- 连接钱包按钮 -->
+            <button id="connectWalletBtn" class="main-btn">连接钱包</button>
 
-/* App 容器 */
-.app-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
+            <!-- 点击按钮后显示的提示文字 -->
+            <div id="walletStatus" class="wallet-status"></div>
 
-/* App 标题 */
-.app-title {
-    margin-bottom: 30px;
-    font-size: 22px;
-    font-weight: bold;
-    color: #333;
-}
+            <!-- 邀请人 + 钱包地址标签 -->
+            <div class="referrer-container">
+                <div class="referrer-label">
+                    <div>邀请人</div>
+                    <div>钱包地址</div>
+                </div>
+                <input type="text" id="referrerInput" placeholder="请绑定邀请人钱包地址">
+            </div>
+        </div>
+    </div>
 
-/* 主按钮（连接钱包） */
-.main-btn {
-    padding: 16px 32px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-bottom: 10px;
-    border: none;
-    border-radius: 8px;
-    background-color: #007bff;
-    color: white;
-    width: 100%;
-    max-width: 400px;
-    box-sizing: border-box;
-    transition: background-color 0.3s, transform 0.1s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-}
+    <!-- 页面右下角版本号 -->
+    <div class="version">版本号: v1.16</div>
 
-/* 按钮点击时缩放动画 */
-.main-btn:active {
-    transform: scale(0.95);
-}
-
-/* 按钮禁用状态 */
-.main-btn:disabled {
-    background-color: #999;
-    cursor: not-allowed;
-    transform: none;
-}
-
-/* 成功闪烁效果 */
-.main-btn.success-flash {
-    background-color: #28a745 !important;
-    transition: background-color 0.5s ease;
-}
-
-/* 加载动画（转圈） */
-.loader {
-    border: 2px solid #fff;
-    border-top: 2px solid transparent;
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-/* 点击后显示的钱包连接状态 */
-.wallet-status {
-    font-size: 14px;
-    margin-bottom: 20px;
-    color: #333;
-    min-height: 20px;
-}
-
-/* 输入框容器 */
-.referrer-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-}
-
-/* 左侧标签（上下排列 + 居中对齐） */
-.referrer-label {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 14px;
-    min-width: 70px;
-    color: #333;
-}
-
-/* 输入框（加粗边框 + 黑色） */
-.referrer-container input {
-    padding: 10px;
-    font-size: 14px;
-    width: 100%;
-    box-sizing: border-box;
-    border: 2px solid #000; /* 加粗黑色边框 */
-    border-radius: 6px;
-}
-
-/* 页面右下角版本号 */
-.version {
-    position: fixed;
-    bottom: 8px;
-    right: 12px;
-    font-size: 12px;
-    color: #555;
-}
+    <script src="script.js"></script>
+</body>
+</html>
