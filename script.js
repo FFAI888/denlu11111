@@ -1,35 +1,46 @@
-document.getElementById('connectWalletBtn').addEventListener('click', function() {
-    alert('点击了连接钱包按钮');
+// v1.25 脚本文件：只支持币安链 BSC (ChainID 56)
 
+document.getElementById('connectWalletBtn').addEventListener('click', async function() {
     const btn = document.getElementById('connectWalletBtn');
     const statusDiv = document.getElementById('walletStatus');
 
-    // 修改按钮状态：文字 + 转圈
-    btn.innerHTML = '<div class="loader"></div> 正在连接...';
-    btn.disabled = true;
+    if (!window.ethereum) {
+        alert('未检测到钱包，请安装 MetaMask 或支持 BSC 的钱包');
+        return;
+    }
 
-    // 显示提示文字
-    statusDiv.textContent = '钱包连接中...';
+    try {
+        // 修改按钮状态：文字 + 转圈
+        btn.innerHTML = '<div class="loader"></div> 正在连接...';
+        btn.disabled = true;
+        statusDiv.textContent = '钱包连接中...';
 
-    // 3 秒后恢复按钮，并显示成功提示
-    setTimeout(() => {
+        // 请求账户权限
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        const account = accounts[0];
+
+        // 检查当前网络
+        const chainId = await ethereum.request({ method: 'eth_chainId' });
+        if (chainId !== '0x38') { // 0x38 = 56 (BSC 主网)
+            statusDiv.textContent = '请切换到币安智能链（BSC）';
+            btn.textContent = '连接钱包';
+            btn.disabled = false;
+            return;
+        }
+
+        // 显示连接成功
+        statusDiv.textContent = '钱包连接成功：' + account;
         btn.textContent = '连接钱包';
         btn.disabled = false;
 
-        // 添加成功闪烁效果
+        // 成功闪烁效果
         btn.classList.add('success-flash');
-        setTimeout(() => {
-            btn.classList.remove('success-flash');
-        }, 1000);
+        setTimeout(() => btn.classList.remove('success-flash'), 1000);
 
-        // 显示成功提示
-        statusDiv.textContent = '钱包连接成功！';
-
-        // 2 秒后清除成功提示
-        setTimeout(() => {
-            statusDiv.textContent = '';
-        }, 2000);
-    }, 3000);
+    } catch (error) {
+        console.error(error);
+        statusDiv.textContent = '连接失败，请重试';
+        btn.textContent = '连接钱包';
+        btn.disabled = false;
+    }
 });
-
-// 当前文件版本号 v1.23
