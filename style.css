@@ -10,21 +10,16 @@ body {
     background: linear-gradient(135deg, #fbc2eb, #a6c1ee); /* 柔和渐变背景：粉紫 → 浅蓝 */
 }
 
-/* 卡片容器（玻璃拟态效果） */
+/* 卡片容器（非透明，明显颜色渐变） */
 .card {
-    background: rgba(255, 255, 255, 0.25); /* 半透明白色 */
-    padding: 30px 20px;
-    border-radius: 16px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    background: linear-gradient(135deg, #ffffff, #e0eafc); /* 明显的浅白蓝渐变 */
+    padding: 50px 25px; /* 上下 padding 增加（原 30px → 50px） */
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
     width: calc(100% - 40px); /* 两边留出 20px 边距 */
-    max-width: 420px;
+    max-width: 440px;
     box-sizing: border-box;
     color: #333;
-
-    /* 玻璃拟态核心 */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* App 容器 */
@@ -38,21 +33,21 @@ body {
 
 /* App 标题 */
 .app-title {
-    margin-bottom: 30px;
-    font-size: 24px;
+    margin-bottom: 35px;
+    font-size: 26px;
     font-weight: bold;
     color: #222;
 }
 
 /* 主按钮（连接钱包） */
 .main-btn {
-    padding: 16px 32px;
+    padding: 18px 34px;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     background: linear-gradient(135deg, #89f7fe, #66a6ff); /* 按钮渐变：浅蓝清新 */
     color: #fff;
     width: 100%;
@@ -103,7 +98,7 @@ body {
 /* 点击后显示的钱包连接状态 */
 .wallet-status {
     font-size: 14px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     color: #333;
     min-height: 20px;
 }
@@ -112,7 +107,7 @@ body {
 .referrer-container {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     width: 100%;
     padding: 0 5px;
     box-sizing: border-box;
@@ -131,13 +126,13 @@ body {
 
 /* 输入框（不可点击、不可复制） */
 .referrer-container input {
-    padding: 10px;
+    padding: 12px;
     font-size: 14px;
     flex: 1;
     box-sizing: border-box;
     border: 2px solid #000;
     border-radius: 6px;
-    background-color: rgba(255,255,255,0.6);
+    background-color: #f8f8f8;
     color: #444;
     pointer-events: none;
     user-select: none;
