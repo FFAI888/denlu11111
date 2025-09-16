@@ -10,9 +10,9 @@ body {
     background: linear-gradient(135deg, #fbc2eb, #a6c1ee); /* 柔和渐变背景：粉紫 → 浅蓝 */
 }
 
-/* 卡片容器（非透明，明显颜色渐变） */
+/* 卡片容器（背景颜色加深） */
 .card {
-    background: linear-gradient(135deg, #ffffff, #e0eafc); /* 明显的浅白蓝渐变 */
+    background: linear-gradient(135deg, #dbe6f6, #cfd9df); /* 较深的浅蓝灰渐变 */
     padding: 50px 25px; /* 上下 padding 增加 */
     border-radius: 18px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.15);
