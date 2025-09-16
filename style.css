@@ -13,10 +13,10 @@ body {
 .app-container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* 居中显示所有元素 */
+    align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 400px; /* 自适应，防止过宽 */
+    max-width: 400px;
     padding: 20px;
     box-sizing: border-box;
     text-align: center;
@@ -24,39 +24,99 @@ body {
 
 /* App 标题 */
 .app-title {
-    margin-bottom: 20px;
-    font-size: 20px;
+    margin-bottom: 30px;
+    font-size: 22px;
+    font-weight: bold;
 }
 
-/* 连接钱包按钮居中 */
-button {
-    padding: 12px 24px;
-    font-size: 16px;
+/* 主按钮（连接钱包） */
+.main-btn {
+    padding: 16px 32px;
+    font-size: 18px;
+    font-weight: bold;
     cursor: pointer;
-    margin-bottom: 20px;
-}
-
-/* 输入框容器：标签在上方 */
-.referrer-container {
-    display: flex;
-    flex-direction: column; /* 标签在上，输入框在下 */
-    align-items: stretch; /* 输入框撑满容器宽度 */
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: white;
     width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    transition: background-color 0.3s, transform 0.1s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 8px;
 }
 
-/* 标签 */
-.referrer-container label {
+/* 按钮点击时缩放动画 */
+.main-btn:active {
+    transform: scale(0.95);
+}
+
+/* 按钮禁用状态 */
+.main-btn:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+    transform: none; /* 禁用时不缩放 */
+}
+
+/* 成功闪烁效果 */
+.main-btn.success-flash {
+    background-color: #28a745 !important;
+    transition: background-color 0.5s ease;
+}
+
+/* 加载动画（转圈） */
+.loader {
+    border: 2px solid #fff;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* 点击后显示的钱包连接状态 */
+.wallet-status {
     font-size: 14px;
-    text-align: left; /* 标签左对齐 */
+    margin-bottom: 20px;
+    color: #333;
+    min-height: 20px;
+}
+
+/* 输入框容器：左边是上下排列的标签，右边是输入框 */
+.referrer-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+/* 左侧标签（上下排列） */
+.referrer-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 14px;
+    text-align: right;
+    min-width: 70px;
 }
 
 /* 输入框 */
 .referrer-container input {
     padding: 10px;
     font-size: 14px;
-    width: 100%; /* 自适应容器宽度 */
+    width: 100%;
     box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 6px;
 }
 
 /* 页面右下角版本号 */
