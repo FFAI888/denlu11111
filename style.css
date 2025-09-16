@@ -10,10 +10,10 @@ body {
     background: linear-gradient(135deg, #fbc2eb, #a6c1ee); /* 柔和渐变背景：粉紫 → 浅蓝 */
 }
 
-/* 卡片容器（清新蓝绿渐变） */
+/* 卡片容器（非透明，明显颜色渐变） */
 .card {
-    background: linear-gradient(135deg, #d4fc79, #96e6a1); /* 清新蓝绿渐变 */
-    padding: 50px 25px; /* 上下 padding 加高 */
+    background: linear-gradient(135deg, #ffffff, #e0eafc); /* 明显的浅白蓝渐变 */
+    padding: 50px 25px; /* 上下 padding 增加 */
     border-radius: 18px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.15);
     width: calc(100% - 40px); /* 两边留出 20px 边距 */
@@ -39,7 +39,7 @@ body {
     color: #222;
 }
 
-/* 主按钮（连接钱包，自然森林渐变） */
+/* 主按钮（连接钱包） */
 .main-btn {
     padding: 18px 34px;
     font-size: 18px;
@@ -48,7 +48,7 @@ body {
     margin-bottom: 15px;
     border: none;
     border-radius: 10px;
-    background: linear-gradient(135deg, #11998e, #38ef7d); /* 自然森林渐变 */
+    background: linear-gradient(135deg, #89f7fe, #66a6ff); /* 按钮渐变：浅蓝清新 */
     color: #fff;
     width: 100%;
     max-width: 400px;
@@ -82,7 +82,7 @@ body {
 
 /* 加载动画（转圈） */
 .loader {
-    border: 2px solid #38ef7d;
+    border: 2px solid #66a6ff;
     border-top: 2px solid transparent;
     border-radius: 50%;
     width: 16px;
