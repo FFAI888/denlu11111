@@ -39,7 +39,7 @@ body {
     color: #222;
 }
 
-/* 主按钮（连接钱包） */
+/* 主按钮（连接钱包，自然森林渐变） */
 .main-btn {
     padding: 18px 34px;
     font-size: 18px;
@@ -48,7 +48,7 @@ body {
     margin-bottom: 15px;
     border: none;
     border-radius: 10px;
-    background: linear-gradient(135deg, #43e97b, #38f9d7); /* 蓝绿清新渐变 */
+    background: linear-gradient(135deg, #11998e, #38ef7d); /* 自然森林渐变 */
     color: #fff;
     width: 100%;
     max-width: 400px;
@@ -82,7 +82,7 @@ body {
 
 /* 加载动画（转圈） */
 .loader {
-    border: 2px solid #38f9d7;
+    border: 2px solid #38ef7d;
     border-top: 2px solid transparent;
     border-radius: 50%;
     width: 16px;
