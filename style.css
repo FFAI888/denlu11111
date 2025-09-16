@@ -7,12 +7,12 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     overflow: hidden; /* 禁止滚动条 */
-    background: linear-gradient(135deg, #ece9e6, #ffffff); /* 浅灰白渐变背景 */
+    background: linear-gradient(135deg, #fbc2eb, #a6c1ee); /* 柔和渐变背景：粉紫 → 浅蓝 */
 }
 
 /* 卡片容器（浅蓝紫渐变 + 阴影 + 两边留白） */
 .card {
-    background: linear-gradient(135deg, #a1c4fd, #c2e9fb); /* 浅蓝紫渐变 */
+    background: linear-gradient(135deg, #ffffff, #f1f5f9); /* 柔和浅灰渐变卡片 */
     padding: 30px 20px;
     border-radius: 16px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.15);
@@ -48,7 +48,7 @@ body {
     margin-bottom: 10px;
     border: none;
     border-radius: 8px;
-    background-color: #2575fc;
+    background: linear-gradient(135deg, #89f7fe, #66a6ff); /* 按钮渐变：浅蓝清新 */
     color: #fff;
     width: 100%;
     max-width: 400px;
@@ -82,7 +82,7 @@ body {
 
 /* 加载动画（转圈） */
 .loader {
-    border: 2px solid #2575fc;
+    border: 2px solid #66a6ff;
     border-top: 2px solid transparent;
     border-radius: 50%;
     width: 16px;
@@ -109,7 +109,7 @@ body {
     align-items: center;
     gap: 12px;
     width: 100%;
-    padding: 0 5px; /* 左右内边距，保持输入框两边对称 */
+    padding: 0 5px;
     box-sizing: border-box;
 }
 
@@ -128,14 +128,14 @@ body {
 .referrer-container input {
     padding: 10px;
     font-size: 14px;
-    flex: 1; /* 自动撑满剩余空间 */
+    flex: 1;
     box-sizing: border-box;
     border: 2px solid #000;
     border-radius: 6px;
     background-color: #f8f8f8;
     color: #666;
-    pointer-events: none; /* 禁止点击 */
-    user-select: none; /* 禁止复制 */
+    pointer-events: none;
+    user-select: none;
 }
 
 /* 页面右下角版本号 */
@@ -144,5 +144,5 @@ body {
     bottom: 8px;
     right: 12px;
     font-size: 12px;
-    color: #777;
+    color: #444;
 }
