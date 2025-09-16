@@ -10,7 +10,6 @@ async function connectWallet() {
     const signer = provider.getSigner();
     const address = await signer.getAddress();
 
-    // 检测链网络
     const network = await provider.getNetwork();
     if(network.chainId !== 56){
       showToast("请切换到 BSC 主网","error");
@@ -28,7 +27,6 @@ async function connectWallet() {
       setTimeout(()=>{ window.location.href="relation.html"; },1000);
     }
 
-    // 监听链切换
     ethereum.on("chainChanged", (chainId)=>{
       const id = parseInt(chainId,16);
       if(id!==56){ showToast("当前不是 BSC 主网，请切换","error"); }
