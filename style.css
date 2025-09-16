@@ -7,19 +7,19 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     overflow: hidden; /* 禁止滚动条 */
-    background: linear-gradient(135deg, #f9f9f9, #e0e0e0); /* 柔和渐变背景 */
+    background: linear-gradient(135deg, #1c1c1c, #2c2c2c); /* 深灰黑背景 */
 }
 
-/* 卡片容器（更深的蓝紫渐变 + 阴影） */
+/* 卡片容器（深蓝紫渐变 + 阴影） */
 .card {
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    background: linear-gradient(135deg, #3a0ca3, #000046); /* 深蓝紫 */
     padding: 30px 20px;
     border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     width: 100%;
     max-width: 420px;
     box-sizing: border-box;
-    color: #fff; /* 卡片内文字默认白色 */
+    color: #fff;
 }
 
 /* App 容器 */
@@ -34,7 +34,7 @@ body {
 /* App 标题 */
 .app-title {
     margin-bottom: 30px;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
     color: #fff;
 }
@@ -49,7 +49,7 @@ body {
     border: none;
     border-radius: 8px;
     background-color: #ffffff;
-    color: #2575fc;
+    color: #3a0ca3;
     width: 100%;
     max-width: 400px;
     box-sizing: border-box;
@@ -82,7 +82,7 @@ body {
 
 /* 加载动画（转圈） */
 .loader {
-    border: 2px solid #2575fc;
+    border: 2px solid #3a0ca3;
     border-top: 2px solid transparent;
     border-radius: 50%;
     width: 16px;
@@ -122,7 +122,7 @@ body {
     color: #fff;
 }
 
-/* 输入框（加粗黑边 + 白底） */
+/* 输入框（加粗黑边 + 白底 + 禁止操作） */
 .referrer-container input {
     padding: 10px;
     font-size: 14px;
@@ -130,8 +130,10 @@ body {
     box-sizing: border-box;
     border: 2px solid #000;
     border-radius: 6px;
-    background-color: #fff;
-    color: #000;
+    background-color: #e0e0e0;
+    color: #555;
+    pointer-events: none; /* 禁止点击 */
+    user-select: none; /* 禁止复制 */
 }
 
 /* 页面右下角版本号 */
@@ -140,5 +142,5 @@ body {
     bottom: 8px;
     right: 12px;
     font-size: 12px;
-    color: #555;
+    color: #bbb;
 }
