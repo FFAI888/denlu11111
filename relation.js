@@ -37,20 +37,23 @@ async function initWallet(){
   });
 }
 
-async function pollTransactions(callback){
-  const httpProvider = new ethers.providers.JsonRpcProvider(BSC_HTTP);
-  let lastBlock = await httpProvider.getBlockNumber();
-  setInterval(async ()=>{
+// 使用 getLogs 监听 CRC 转账事件，替代轮询
+async function listenCRCTransfer(callback){
+  const filter = {
+    address: CRC_ADDRESS,
+    topics: [
+      ethers.utils.id("Transfer(address,address,uint256)")
+    ]
+  };
+  provider.on(filter, (log)=>{
     try{
-      const newBlock = await httpProvider.getBlockNumber();
-      if(newBlock <= lastBlock) return;
-      for(let i=lastBlock+1;i<=newBlock;i++){
-        const block = await httpProvider.getBlockWithTransactions(i);
-        for(let tx of block.transactions) callback(tx);
-      }
-      lastBlock = newBlock;
-    }catch(e){ console.error("轮询出错:",e);}
-  },3000);
+      const parsed = new ethers.utils.Interface(CRC_ABI).parseLog(log);
+      const from = parsed.args[0];
+      const to = parsed.args[1];
+      const value = parsed.args[2];
+      callback({from,to,value});
+    }catch(e){ console.error("解析事件出错:",e);}
+  });
 }
 
 document.addEventListener("DOMContentLoaded", async ()=>{
@@ -66,21 +69,21 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   const crcContract = new ethers.Contract(CRC_ADDRESS,CRC_ABI,signer);
 
   function handleTx(tx){
-    if(tx.to && tx.to.toLowerCase() === userAddress.toLowerCase() && !btnReceive.disabled){
+    if(tx.to.toLowerCase() === userAddress.toLowerCase() && !btnReceive.disabled){
       inviterAddress = tx.from;
       btnReceive.disabled = false;
       showToast("检测到邀请人转账，确认接收按钮已激活","success");
     }
     if(inviterAddress &&
-       tx.from && tx.from.toLowerCase() === userAddress.toLowerCase() &&
-       tx.to && tx.to.toLowerCase() === inviterAddress.toLowerCase() &&
+       tx.from.toLowerCase() === userAddress.toLowerCase() &&
+       tx.to.toLowerCase() === inviterAddress.toLowerCase() &&
        !btnSend.disabled){
       btnSend.disabled = false;
       showToast("检测到 CRC 发送成功，确认发送按钮已激活","success");
     }
   }
 
-  pollTransactions(handleTx);
+  listenCRCTransfer(handleTx);
 
   btnReceive.addEventListener("click",()=>{
     tipsText.style.display="none";
