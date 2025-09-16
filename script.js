@@ -1,118 +1,69 @@
-let currentAccount = null;
-let retryInterval = null;
-let countdown = 3;
-let countdownInterval = null;
-
-const retryBtn = document.getElementById("retryWalletBtn");
-const stopRetryBtn = document.getElementById("stopRetryBtn");
-
-function updateStatus(msg, color = "blue") {
-  const status = document.getElementById("walletStatus");
-  if (status) {
-    status.innerText = msg;
-    status.style.color = color;
-  }
-}
-
-// 停止自动重试
-function stopAutoRetry() {
-  if (retryInterval) {
-    clearInterval(retryInterval);
-    retryInterval = null;
-  }
-  if (countdownInterval) {
-    clearInterval(countdownInterval);
-    countdownInterval = null;
-  }
-  updateStatus("⚠ 已停止自动重试", "orange");
-  if (stopRetryBtn) stopRetryBtn.style.display = "none";
-}
-
-// 更新倒计时显示
-function startCountdown() {
-  countdown = 3;
-  if (countdownInterval) clearInterval(countdownInterval);
-  countdownInterval = setInterval(() => {
-    countdown--;
-    if (countdown > 0) {
-      updateStatus(`🔄 自动重试中，下次尝试 ${countdown} 秒后...`, "orange");
-    } else {
-      clearInterval(countdownInterval);
-    }
-  }, 1000);
-}
-
-// 连接钱包
 async function connectWallet() {
+  console.log("点击连接钱包触发");
+
+  // 通过 window.ethereum 检查钱包
   const ethereum = window.ethereum || window.BinanceChain;
+  
   if (!ethereum) {
-    updateStatus("❌ 未检测到钱包插件", "red");
-    if (retryBtn) retryBtn.style.display = "inline-block";
-    if (stopRetryBtn) stopRetryBtn.style.display = "inline-block";
+    showToast("请安装支持以太坊/BSC 的钱包", "error");
     return;
   }
 
-  updateStatus("✅ 钱包插件检测到，正在请求账户授权...");
-
   try {
     const provider = new ethers.providers.Web3Provider(ethereum);
-    await provider.send("eth_requestAccounts", []);
+    await provider.send("eth_requestAccounts", []); // 请求钱包连接
     const signer = provider.getSigner();
-    const address = await signer.getAddress();
-    currentAccount = address;
+    const address = await signer.getAddress();  // 获取用户钱包地址
 
+    // 检查用户网络是否为 BSC 主网 (ChainID: 56)
     const network = await provider.getNetwork();
     if (network.chainId !== 56) {
-      updateStatus("⚠ 当前不是 BSC 主网，请切换网络", "orange");
-      if (retryBtn) retryBtn.style.display = "inline-block";
-      if (stopRetryBtn) stopRetryBtn.style.display = "inline-block";
+      showToast("请切换到 BSC 主网", "error");
       return;
     }
 
-    updateStatus(`✅ 已连接 BSC 主网，钱包地址: ${address}`, "green");
-    if (retryBtn) retryBtn.style.display = "none";
-    if (stopRetryBtn) stopRetryBtn.style.display = "none";
+    // 保存连接钱包的地址
+    localStorage.setItem("loginWallet", address);
 
-    stopAutoRetry();
+    // 显示钱包地址
+    const referrerInput = document.getElementById("referrerInput");
+    referrerInput.value = localStorage.getItem("inviterWallet") || "";
 
-  } catch (err) {
-    console.error("连接失败:", err);
-    const msg = err && err.message ? err.message : JSON.stringify(err);
-    updateStatus("❌ 连接钱包失败: " + msg, "red");
-    if (retryBtn) retryBtn.style.display = "inline-block";
-    if (stopRetryBtn) stopRetryBtn.style.display = "inline-block";
+    showToast("钱包已连接: " + address, "success");
 
-    // 启动自动重试
-    if (!retryInterval) {
-      startCountdown();
-      retryInterval = setInterval(() => {
-        startCountdown();
-        connectWallet();
-      }, 3000);
+    // 如果没有设置邀请人地址，跳转到确认关系页面
+    if (!localStorage.getItem("inviterWallet")) {
+      showToast("跳转确认关系页面", "info");
+      setTimeout(() => { window.location.href = "relation.html"; }, 1000);
     }
+
+    // 监听钱包网络变化
+    ethereum.on("chainChanged", (chainId) => {
+      const id = parseInt(chainId, 16);
+      if (id !== 56) {
+        showToast("当前不是 BSC 主网，请切换", "error");
+      } else {
+        showToast("已切换到 BSC 主网", "success");
+      }
+    });
+  } catch (err) {
+    console.error("连接钱包失败:", err);
+    showToast("连接钱包失败: " + err.message, "error");
   }
 }
 
-// 手动重试按钮绑定
-if (retryBtn) {
-  retryBtn.addEventListener("click", () => {
-    connectWallet();
-    updateStatus("🔄 手动重试中...");
-  });
+function showToast(msg, type = "info") {
+  const container = document.getElementById("toastContainer");
+  const toast = document.createElement("div");
+  toast.className = `toast toast-${type}`;
+  toast.textContent = msg;
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 2000);
 }
 
-// 停止自动重试按钮绑定
-if (stopRetryBtn) {
-  stopRetryBtn.addEventListener("click", stopAutoRetry);
-}
-
-// DOM 加载完成
+// 页面加载时初始化
 document.addEventListener("DOMContentLoaded", () => {
-  updateStatus("脚本已加载，等待操作...");
   const btn = document.getElementById("connectWalletBtn");
-  if (btn) {
-    btn.addEventListener("click", connectWallet);
-  } else {
-    updateStatus("❌ 找不到按钮 #connectWalletBtn", "red");
-  }
+  if (!btn) console.error("connectWalletBtn 按钮未找到");
+  btn.addEventListener("click", connectWallet);
 });
