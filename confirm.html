@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>确认关系</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #e9f5ff;
+      font-family: Arial, sans-serif;
+    }
+    .button-stack {
+      position: relative;
+      width: 200px;
+      height: 60px;
+    }
+    .button-stack button {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      opacity: 0.9;
+    }
+    .confirm-receive {
+      background: #4CAF50;
+      z-index: 3;
+    }
+    .confirm-send {
+      background: #2196F3;
+      top: 8px;
+      left: 8px;
+      z-index: 2;
+    }
+    .confirm-bind {
+      background: #FF9800;
+      top: 16px;
+      left: 16px;
+      z-index: 1;
+    }
+    .button-stack button:hover {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="button-stack">
+    <button class="confirm-receive">确认接收</button>
+    <button class="confirm-send">确认发送</button>
+    <button class="confirm-bind">确认绑定</button>
+  </div>
+</body>
+</html>
