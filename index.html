@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DApp Wallet Login v1.17</title> <!-- 文件名旁显示版本号 -->
+    <title>DApp Wallet Login v1.18</title> <!-- 文件名旁显示版本号 -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
     <div class="card">
         <div class="app-container">
             <!-- App 标题 -->
-            <h1 class="app-title">DApp 应用</h1>
+            <h1 class="app-title">欢迎使用 RongChain</h1>
 
             <!-- 连接钱包按钮 -->
             <button id="connectWalletBtn" class="main-btn">连接钱包</button>
@@ -25,13 +25,13 @@
                     <div>邀请人</div>
                     <div>钱包地址</div>
                 </div>
-                <input type="text" id="referrerInput" placeholder="请绑定邀请人钱包地址">
+                <input type="text" id="referrerInput" placeholder="请绑定邀请人钱包地址" readonly oncopy="return false" onpaste="return false" oncut="return false">
             </div>
         </div>
     </div>
 
     <!-- 页面右下角版本号 -->
-    <div class="version">版本号: v1.17</div>
+    <div class="version">版本号: v1.18</div>
 
     <script src="script.js"></script>
 </body>
